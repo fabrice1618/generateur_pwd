@@ -4,7 +4,7 @@ class JPCColumn:
         
     def get_column(self, col_index):
         """Récupère une colonne du bloc (4x4)"""
-        return ''.join(self.bloc.characters[i * 4 + col_index] for i in range(4))
+        return [self.bloc.bytes[i * 4 + col_index] for i in range(4)]
         
     def get_all_columns(self):
         """Récupère toutes les colonnes"""
