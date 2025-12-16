@@ -43,7 +43,7 @@ INV_SBOX = [
 
 def SBox(list):
     """
-    fais correspondre une d'octet à son équivalent dans la S-Box AES définie par la variable SBOX
+    Applique la S-Box sur une liste d'octets
     """
     result = []
     for byte in list:
@@ -53,7 +53,7 @@ def SBox(list):
 
 def InvSBox(list):
     """
-    fais correspondre une liste de code hexadécimaux à son équivalent dans la S-Box inverse AES définie par la variable INV_SBOX
+    Applique la S-Box inverse sur une liste d'octets
     """
     result = []
     for byte in list:
@@ -64,7 +64,8 @@ def InvSBox(list):
 
 def split_bytes_into_blocks(byte_list, block_size=16):
     """
-    Divise une liste d'octets en blocs de taille donnée. Rajoute  des 0x00 si nécessaire pour compléter le dernier bloc.
+    Divise une liste d'octets en blocs de taille fixe.
+    Si le dernier bloc est plus petit que la taille spécifiée, il est complété avec des zéros.
     """
     blocks = []
     for i in range(0, len(byte_list), block_size):
@@ -77,7 +78,7 @@ def split_bytes_into_blocks(byte_list, block_size=16):
 
 def convert_text_to_bytes(text):
     """
-    Convertit un bloc de texte en une liste d'octets
+    Converts a text string into a list of bytes using UTF-8 encoding.
     """
     return list(text.encode('utf-8', errors='ignore'))
  
@@ -85,30 +86,37 @@ def convert_text_to_bytes(text):
 
 def convert_byte_to_text(byte_list):
     """
-    Convertit une liste d'octets (entiers de 0 à 255) en texte.
+    Converts a list of bytes back into a text string using UTF-8 decoding.
     """
     text = bytes(byte_list).decode('utf-8', errors='ignore')
     return text
 
 if __name__ == "__main__":
-    sample_text = "中aéééééééééCeci est un exemple de中中 texte à divi中中中ser en blocs de seize caractères.$£"
+    sample_text="Voici un texte avec des caractères spéciaux : 中, é, ü, ñ, и, عربى, 😊."
     byte_list = convert_text_to_bytes(sample_text)
     blocks = split_bytes_into_blocks(byte_list, block_size=16)
     sbox_blocks = []
     inv_sbox_blocks = []
     text_blocks = []
+    reconstructed_bytes = []
+    cipher_blocks = []
     for i, block in enumerate(blocks): 
         sbox_block = SBox(block)
         inv_sbox_block = InvSBox(sbox_block)
         text_block = convert_byte_to_text(inv_sbox_block)
         sbox_blocks.append(sbox_block)
+        cipher_blocks.extend(sbox_block)
         inv_sbox_blocks.append(inv_sbox_block)
         text_blocks.append(text_block)
-        print(f"Block {i+1}:")
-        print(f"  Original Bytes: {block}")
-        print(f"  S-Box Bytes:    {sbox_block}")
-        print(f"  Inv S-Box Bytes:{inv_sbox_block}")
-        print(f"  Reconstructed Text: '{text_block}'")
-        reconstructed_text = ''.join(text_blocks)
-    print("Reconstructed Text from all blocks:")
-    print(f"'{reconstructed_text}'")
+        # print(f"Block {i+1}:")
+        # print(f"  Block Size: {len(block)} bytes")
+        # print(f"  Original Bytes: {block}")
+        # print(f"  S-Box Bytes:    {sbox_block}")
+        # print(f"  Inv S-Box Bytes:{inv_sbox_block}")
+        reconstructed_bytes.extend(inv_sbox_block)
+    print("Texte original:")
+    print(sample_text)
+    print("Texte chiffré avec S-Box:")
+    print(convert_byte_to_text(cipher_blocks))
+    print("Texte déchiffré:")
+    print(convert_byte_to_text(reconstructed_bytes))
