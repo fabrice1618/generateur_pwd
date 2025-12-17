@@ -1,3 +1,5 @@
+from Encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
+
 SBOX = [
     0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
     0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
@@ -85,29 +87,8 @@ class JPCBloc:
         def XOR(self, key):
             """Effectue un XOR entre le bloc et une clé (liste d'octets de même taille)"""
             self.bytes = [b ^ k for b, k in zip(self.bytes, key)]
-        
-        def SwitchRows(self, reverse=False):
-            """
-            Effectue l'opération ShiftRows de l'algorithme AES sur le bloc de 16 bytes.
-            Cette opération décale les lignes du bloc de manière circulaire :
-            **Mode normal (reverse=False) :**
-            - Ligne 0 : pas de décalage
-            - Ligne 1 : décalage à gauche de 1 position
-            - Ligne 2 : décalage à gauche de 2 positions
-            - Ligne 3 : décalage à gauche de 3 positions
-            Exemple simple : si la ligne 1 contient [A, B, C, D]
-            → elle devient [B, C, D, A] (le B prend la place du A, etc., et A va à la fin)
-            **Mode inverse (reverse=True) :**
-            - Ligne 0 : pas de décalage
-            - Ligne 1 : décalage à droite de 1 position
-            - Ligne 2 : décalage à droite de 2 positions
-            - Ligne 3 : décalage à droite de 3 positions
-            Exemple simple : si la ligne 1 contient [A, B, C, D]
-            → elle devient [D, A, B, C] (le D va au début, les autres se décalent à droite)
-            Args:
-                reverse (bool): Si False, décalage à gauche (chiffrement).
-                               Si True, décalage à droite (déchiffrement).
-            """
+            
+        def ShiftRows(self, reverse=False):
             """Effectue le ShiftRows sur le bloc"""
             if reverse:
                 # Décalage circulaire à droite
@@ -123,3 +104,12 @@ class JPCBloc:
                     rows[i] = rows[i][i:] + rows[i][:i]  # Décalage circulaire à gauche
                 # Reconstruire le bloc à partir des lignes modifiées
                 self.bytes = [rows[j][i] for i in range(4) for j in range(4)]
+        
+        def MixColumns(self):
+            """Effectue le MixColumns sur le bloc (non implémenté ici)"""
+            mix_hex="02010103030201010103020101010302"
+            mix_block = JPCBloc(hex_decode(mix_hex))
+            columns = self.get_all_columns()
+            mix_rows = mix_block.get_all_rows()
+            print(columns)
+            print(mix_rows)
