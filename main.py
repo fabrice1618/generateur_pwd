@@ -1,5 +1,5 @@
 from sources.JPCBloc import JPCBloc
-from sources.Encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
+from sources.encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
 
 
 def split_bytes_into_blocks(byte_list, block_size=16):
@@ -30,7 +30,7 @@ def crypt_bytes(bytes_list, key=None):
         bloc_instance.MixColumns()
         bloc_instance.XOR(key)
         for i in range(14):
-            bloc_instance.SBox()
+            bloc_instance.sbox()
             bloc_instance.ShiftRows()
             bloc_instance.XOR(key)
         cipher.extend(bloc_instance.bytes)
@@ -44,7 +44,7 @@ def decrypt_bytes(bytes_list, key=None):
         for i in range(14):
             bloc_instance.XOR(key)
             bloc_instance.ShiftRows(reverse=True)
-            bloc_instance.InvSBox()
+            bloc_instance.inv_sbox()
         bloc_instance.XOR(key)
         decipher.extend(bloc_instance.bytes)
     return remove_padding(decipher)

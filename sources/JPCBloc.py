@@ -1,6 +1,6 @@
-from Encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
-from SBox import SBOX, INV_SBOX
-
+from sources.encoding import hex_decode, hex_encode, utf8_encode, utf8_decode, int_to_bits
+from sources.SBOX import SBOX, INV_SBOX
+from sources.maths import gf_multiply
             
 
 class JPCBloc:
@@ -10,14 +10,14 @@ class JPCBloc:
         def __str__(self):
             return str(self.bytes)
         
-        def SBox(self):
+        def sbox(self):
             result = []
             for byte in self.bytes:
                 sbox_value = SBOX[byte]
                 result.append(sbox_value)
             self.bytes = result
             
-        def InvSBox(self):
+        def inv_sbox(self):
             """
             Applique la S-Box inverse sur une liste d'octets
             """
@@ -48,6 +48,7 @@ class JPCBloc:
             for i in range(4):
                 print(self.get_row(i))
             print("\n")
+
         def XOR(self, key):
             """Effectue un XOR entre le bloc et une clé (liste d'octets de même taille)"""
             self.bytes = [b ^ k for b, k in zip(self.bytes, key)]
@@ -73,7 +74,17 @@ class JPCBloc:
             """Effectue le MixColumns sur le bloc (non implémenté ici)"""
             mix_hex="02010103030201010103020101010302"
             mix_block = JPCBloc(hex_decode(mix_hex))
+            self.get_block()
+            mix_block.get_block()
             columns = self.get_all_columns()
             mix_rows = mix_block.get_all_rows()
-            print(columns)
-            print(mix_rows)
+            new_columns = []
+            for i, col in enumerate(columns):
+                new_collumn = []
+                mix_row= mix_rows[i]
+                for j in range(4):
+                    bits= int_to_bits(col[j])
+                    mix_bits= int_to_bits(mix_row[j])
+                    print(bits)
+                    print(mix_bits)
+                    print(gf_multiply(col[j], mix_row[j]))
