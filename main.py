@@ -1,5 +1,5 @@
-from JPCBloc import JPCBloc
-from Encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
+from sources.JPCBloc import JPCBloc
+from sources.Encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
 
 
 def split_bytes_into_blocks(byte_list, block_size=16):
