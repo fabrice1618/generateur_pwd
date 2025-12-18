@@ -1,4 +1,4 @@
-from sources.encoding import hex_decode, hex_encode, utf8_encode, utf8_decode, int_to_bits
+from sources.encoding import hex_decode, hex_encode, utf8_encode, utf8_decode
 from sources.SBOX import SBOX, INV_SBOX
 from sources.maths import gf_multiply
             
@@ -79,12 +79,16 @@ class JPCBloc:
             columns = self.get_all_columns()
             mix_rows = mix_block.get_all_rows()
             new_columns = []
-            for i, col in enumerate(columns):
-                new_collumn = []
-                mix_row= mix_rows[i]
-                for j in range(4):
-                    bits= int_to_bits(col[j])
-                    mix_bits= int_to_bits(mix_row[j])
-                    print(bits)
-                    print(mix_bits)
-                    print(gf_multiply(col[j], mix_row[j]))
+            
+            for col in columns:
+                new_column = []
+                for mix_row in mix_rows:
+                    gf=[]
+                    for j in range(4):
+                        # print(f"Multiplier {mix_row[j]} par {col[j]}")
+                        gf.append(gf_multiply(mix_row[j], col[j]))
+                    # print("Résultats des multiplications en GF(2^8):", gf)
+                    new_column.append(gf[0] ^ gf[1] ^ gf[2] ^ gf[3])
+                new_columns.extend(new_column)
+            print("Nouvelles colonnes après MixColumns:", new_columns)
+            self.bytes = new_columns

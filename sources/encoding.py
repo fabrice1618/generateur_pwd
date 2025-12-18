@@ -9,6 +9,3 @@ def hex_encode(byte_list):
 
 def hex_decode(hex_string):
     return list(bytes.fromhex(hex_string))
-
-def int_to_bits(int):
-    return [(int >> i) & 1 for i in range(7, -1, -1)]
