@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "VaultPass",
+  "version": "1.0",
+  "description": "Gestionnaire de mots de passe sécurisé avec générateur intégré",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "king-icon.png",
+      "48": "king-icon.png",
+      "128": "king-icon.png"
+    }
+  },
+  "icons": {
+    "16": "king-icon.png",
+    "48": "king-icon.png",
+    "128": "king-icon.png"
+  },
+  "permissions": []
+}

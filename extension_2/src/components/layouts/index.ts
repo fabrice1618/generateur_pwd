@@ -1,0 +1,5 @@
+export { default as LayoutDefault } from './LayoutDefault.vue'
+export { default as LayoutError } from './LayoutError.vue'
+export { default as LayoutSidebar } from './LayoutSidebar.vue'
+export { default as Header } from './Header.vue'
+export { default as Footer } from './Footer.vue'

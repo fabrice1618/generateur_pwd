@@ -1,0 +1,136 @@
+:root {
+  /* Light theme colors */
+  --color-primary: #175DDC;
+  --color-secondary: #0F4C81;
+  --color-accent: #ff6b6b;
+  --color-muted: #f6f7fb;
+
+  --bg: #ffffff;
+  --text: #213547;
+  /* Surface token used for cards/inputs to contrast with page background */
+  --surface: #f7f8fb;
+  --text-secondary: #666;
+
+  /* Input / form tokens (light) */
+  --input-bg: var(--surface);
+  --input-border: #d6d9e6;
+  --input-text: #213547;
+  --input-placeholder: #8a98a8;
+  --input-radius: 6px;
+  --input-focus: var(--color-primary);
+  --input-focus-shadow: 0 0 0 4px rgba(23, 93, 220, 0.08);
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors (overrides) */
+  --color-primary: #4A90E2;
+  --color-secondary: #2E5C8A;
+  --color-accent: #ff8b8b;
+  --color-muted: #2a2a34;
+
+  --bg: #121212;
+  --text: #e6eef6;
+  --surface: #1e1e1e;
+  --text-secondary: #9aa4b2;
+
+  /* Input / form tokens (dark) */
+  --input-bg: var(--surface);
+  --input-border: #2a2a34;
+  --input-text: #e6eef6;
+  --input-placeholder: #9aa4b2;
+  --input-radius: 6px;
+  --input-focus: var(--color-primary);
+  --input-focus-shadow: 0 0 0 4px rgba(74, 144, 226, 0.06);
+}
+
+[data-theme="blue"] {
+  /* Blue theme - adjusted for better visibility */
+  --color-primary: #2563eb;
+  --color-secondary: #1d4ed8;
+  --color-accent: #60a5fa;
+  --color-muted: #dbeafe;
+
+  --bg: #eff6ff;
+  --text: #1e293b;
+  --surface: #ffffff;
+  --text-secondary: #64748b;
+
+  --input-bg: var(--surface);
+  --input-border: #cbd5e1;
+  --input-text: #1e293b;
+  --input-placeholder: #94a3b8;
+  --input-focus: var(--color-primary);
+  --input-focus-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="green"] {
+  /* Green theme */
+  --color-primary: #166534;
+  --color-secondary: #14532d;
+  --color-accent: #22c55e;
+  --color-muted: #dcfce7;
+
+  --bg: #f0fdf4;
+  --text: #14532d;
+  --surface: #ffffff;
+  --text-secondary: #4ade80;
+
+  --input-bg: var(--surface);
+  --input-border: #bbf7d0;
+  --input-text: #14532d;
+  --input-placeholder: #86efac;
+  --input-focus: var(--color-primary);
+  --input-focus-shadow: 0 0 0 4px rgba(22, 101, 52, 0.1);
+}
+
+[data-theme="purple"] {
+  /* Purple theme */
+  --color-primary: #7c3aed;
+  --color-secondary: #6d28d9;
+  --color-accent: #a855f7;
+  --color-muted: #f3e8ff;
+
+  --bg: #faf5ff;
+  --text: #581c87;
+  --surface: #ffffff;
+  --text-secondary: #c084fc;
+
+  --input-bg: var(--surface);
+  --input-border: #d8b4fe;
+  --input-text: #581c87;
+  --input-placeholder: #c084fc;
+  --input-focus: var(--color-primary);
+  --input-focus-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+/* Responsive breakpoints */
+:root {
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1440px;
+}
+
+/* Layout classes for responsive design */
+.layout-mobile {
+  --container-padding: 1rem;
+  --font-size-base: 14px;
+  --font-size-large: 16px;
+}
+
+.layout-tablet {
+  --container-padding: 1.5rem;
+  --font-size-base: 16px;
+  --font-size-large: 18px;
+}
+
+.layout-desktop {
+  --container-padding: 2rem;
+  --font-size-base: 16px;
+  --font-size-large: 20px;
+}
+
+.layout-large-desktop {
+  --container-padding: 3rem;
+  --font-size-base: 18px;
+  --font-size-large: 24px;
+}
