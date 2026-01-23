@@ -27,12 +27,14 @@ def crypt_bytes(bytes_list, key=None):
     cipher=[]
     for block in blocks:
         bloc_instance = JPCBloc(block)
-        bloc_instance.MixColumns()
         bloc_instance.XOR(key)
-        for i in range(14):
+        for i in range(13):
             bloc_instance.sbox()
             bloc_instance.ShiftRows()
             bloc_instance.XOR(key)
+        bloc_instance.sbox()
+        bloc_instance.ShiftRows()
+        bloc_instance.XOR(key)
         cipher.extend(bloc_instance.bytes)
     return cipher
 
